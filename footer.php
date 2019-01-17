@@ -50,7 +50,7 @@
                     <a href="<?php home_url(); ?>"><?php bloginfo('name'); ?></a>
                     <span>. All Rights Reserved.</span>
                     <span>Theme</span>
-                    <a href="#" target="_blank">Elsa</a>
+                    <a href="https://www.cainiaofly.com/elsa.html" target="_blank">Elsa</a>
                     <span>By</span>
                     <a href="https://www.cainiaofly.com/" target="_blank">Maine</a>
                 </p>

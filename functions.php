@@ -1,20 +1,20 @@
 <?php
 
-define('ELSA_VERSION', '1.0');
-define( 'OPTIONS_FRAMEWORK_DIRECTORY', get_template_directory_uri() . '/inc/options-framework-theme/' );
+define('ELSA_VERSION', '1.0.0');
+define('OPTIONS_FRAMEWORK_DIRECTORY', get_template_directory_uri() . '/inc/options-framework-theme/');
 
-require_once dirname( __FILE__ ) . '/inc/options-framework-theme/options-framework.php';
-require_once dirname( __FILE__ ) . '/inc/wp_bootstrap_navwalker.php';
+require_once dirname(__FILE__) . '/inc/options-framework-theme/options-framework.php';
+require_once dirname(__FILE__) . '/inc/wp_bootstrap_navwalker.php';
 if (!function_exists('z_taxonomy_image_url')) {
     define('Z_PLUGIN_URL', get_stylesheet_directory_uri() . "/inc/categories-images");
-    require_once dirname( __FILE__ ) . '/inc/categories-images/categories-images.php';
+    require_once dirname(__FILE__) . '/inc/categories-images/categories-images.php';
 }
 
-$optionsfile = locate_template( 'options.php' );
-load_template( $optionsfile );
+$optionsfile = locate_template('options.php');
+load_template($optionsfile);
 
-require_once(dirname( __FILE__ ) . '/inc/cus-fn-stream.php');
-include("cusfn://");
+require_once dirname(__FILE__) . '/inc/cus-fn-stream.php';
+include "cusfn://";
 
 /**
  * Admin menu
@@ -22,24 +22,25 @@ include("cusfn://");
  * @author Maine <https://www.cainiaofly.com>
  * @license GPL-3.0
  */
-function elsa_options_menu_filter( $menu ) {
+function elsa_options_menu_filter($menu)
+{
     $menu['mode'] = 'menu';
-    $menu['page_title'] = __( '网站设置', 'elsa' );
-    $menu['menu_title'] = __( '网站设置', 'elsa' );
+    $menu['page_title'] = __('网站设置', 'elsa');
+    $menu['menu_title'] = __('网站设置', 'elsa');
     $menu['menu_slug'] = 'elsa-admin';
     return $menu;
-  }
-add_filter( 'optionsframework_menu', 'elsa_options_menu_filter' );
+}
+add_filter('optionsframework_menu', 'elsa_options_menu_filter');
 
 /**
  * Theme updating
- * 
+ *
  * @author Maine <https://www.cainiaofly.com>
  * @license GPL-3.0
  */
-require_once( get_template_directory() . '/inc/version.php' );
+require_once get_template_directory() . '/inc/version.php';
 $elsa_update_checker = new ThemeUpdateChecker(
-    'Elsa', 
+    'Elsa',
     'https://mirrors.cainiaofly.com/themes/elsa/upgrade.php'
 );
 
@@ -69,32 +70,32 @@ add_action('wp_enqueue_scripts', 'elsa_theme_scripts');
  * @author Maine <https://www.cainiaofly.com>
  * @license GPL-3.0
  */
-add_filter( 'show_admin_bar', '__return_false' );
-remove_action( 'wp_head', 'wp_print_head_scripts', 9 );
-remove_action( 'wp_head', 'wp_generator' );
-remove_action( 'wp_head', 'rsd_link' );
-remove_action( 'wp_head', 'wlwmanifest_link' );
-remove_action( 'wp_head', 'index_rel_link' );
-remove_action( 'wp_head', 'parent_post_rel_link', 10, 0 );
-remove_action( 'wp_head', 'start_post_rel_link', 10, 0 );
-remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );
-remove_action( 'wp_head', 'rel_canonical' );
-remove_action( 'wp_head', 'feed_links', 2 );
-remove_action( 'wp_head', 'feed_links_extra', 3 );
+add_filter('show_admin_bar', '__return_false');
+remove_action('wp_head', 'wp_print_head_scripts', 9);
+remove_action('wp_head', 'wp_generator');
+remove_action('wp_head', 'rsd_link');
+remove_action('wp_head', 'wlwmanifest_link');
+remove_action('wp_head', 'index_rel_link');
+remove_action('wp_head', 'parent_post_rel_link', 10, 0);
+remove_action('wp_head', 'start_post_rel_link', 10, 0);
+remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
+remove_action('wp_head', 'rel_canonical');
+remove_action('wp_head', 'feed_links', 2);
+remove_action('wp_head', 'feed_links_extra', 3);
 remove_action('admin_print_scripts', 'print_emoji_detection_script');
 remove_action('admin_print_styles', 'print_emoji_styles');
-remove_filter('the_content', 'wptexturize'); 
+remove_filter('the_content', 'wptexturize');
 remove_filter('comment_text', 'wptexturize');
 remove_action('embed_head', 'print_emoji_detection_script');
 remove_filter('the_content_feed', 'wp_staticize_emoji');
 remove_filter('comment_text_rss', 'wp_staticize_emoji');
 remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
 
-add_action( 'wp_enqueue_scripts', 'mt_enqueue_scripts', 1 );
-function mt_enqueue_scripts() {
-  wp_deregister_script('jquery');
+add_action('wp_enqueue_scripts', 'mt_enqueue_scripts', 1);
+function mt_enqueue_scripts()
+{
+    wp_deregister_script('jquery');
 }
-
 
 /**
  * speed the emoji !!!
@@ -102,13 +103,15 @@ function mt_enqueue_scripts() {
  * @author Maine <https://www.cainiaofly.com>
  * @license GPL-3.0
  */
-function elsa_wp_emoji_baseurl($url) {
-	return set_url_scheme('//twemoji.maxcdn.com/2/72x72/');
+function elsa_wp_emoji_baseurl($url)
+{
+    return set_url_scheme('//twemoji.maxcdn.com/2/72x72/');
 }
 add_filter('emoji_url', 'elsa_wp_emoji_baseurl');
 
-function elsa_wp_emoji_svgurl($url) {
-	return set_url_scheme('//twemoji.maxcdn.com/svg/');
+function elsa_wp_emoji_svgurl($url)
+{
+    return set_url_scheme('//twemoji.maxcdn.com/svg/');
 }
 add_filter('emoji_svg_url', 'elsa_wp_emoji_svgurl');
 
@@ -139,40 +142,111 @@ function elsa_wp_title($title, $sep)
 add_filter('wp_title', 'elsa_wp_title', 10, 2);
 
 /**
+ * the description
+ *
+ * @author Maine <https://www.cainiaofly.com>
+ * @license GPL-3.0
+ */
+function elsa_description()
+{
+    if (is_home() || is_front_page()) {
+        echo trim(of_get_option('site_desc'));
+    } elseif (is_category()) {
+        $description = strip_tags(category_description());
+        echo trim($description);
+    } elseif (is_single()) {
+        if (get_the_excerpt()) {
+            echo get_the_excerpt();
+        } else {
+            global $post;
+            $description = trim(str_replace(array("\r\n", "\r", "\n", "　", " "), " ", str_replace("\"", "'", strip_tags($post->post_content))));
+            echo mb_substr($description, 0, 220, 'utf-8');
+        }
+    } elseif (is_search()) {
+        echo '“';
+        the_search_query();
+        echo '”为您找到结果 ';global $wp_query;
+        echo $wp_query->found_posts;
+        echo ' 个';
+    } elseif (is_tag()) {
+        $description = strip_tags(tag_description());
+        echo trim($description);
+    } else {
+        $description = strip_tags(term_description());
+        echo trim($description);
+    }
+}
+
+/**
+ * the keywords
+ *
+ * @author Maine <https://www.cainiaofly.com>
+ * @license GPL-3.0
+ */
+function elsa_keywords()
+{
+    if (is_home() || is_front_page()) {
+        echo of_get_option('site_keywords');
+    } elseif (is_category()) {
+        single_cat_title();
+        echo ',' . get_bloginfo('name');
+    } elseif (is_single()) {
+        echo get_the_title() . ',';
+        echo get_bloginfo('name') . ',';
+        if (has_tag()) {
+            foreach ((get_the_tags()) as $tag) {
+                echo $tag->name . ',';
+            }
+        }
+        foreach ((get_the_category()) as $category) {
+            echo $category->cat_name . ',';
+        }
+    } elseif (is_search()) {
+        the_search_query();
+        echo get_bloginfo('name') . ',';
+    } else {
+        echo trim(wp_title('', false));
+    }
+}
+
+/**
  * post thumbnail
  *
  * @author Maine <https://www.cainiaofly.com>
  * @license GPL-3.0
  */
-if ( function_exists( 'add_image_size' ) ){  
-    add_image_size( 'elsa-thumb', 280, 160);
+if (function_exists('add_image_size')) {
+    add_image_size('elsa-thumb', 280, 160);
 }
 function get_elsa_post_thumb()
 {
     global $post;
     $img_id = get_post_thumbnail_id();
-    $img_url = wp_get_attachment_image_src($img_id,'kratos-entry-thumb');
+    $img_url = wp_get_attachment_image_src($img_id, 'kratos-entry-thumb');
     $img_url = $img_url[0];
-    if(has_post_thumbnail()) {
+    if (has_post_thumbnail()) {
         return $img_url;
     }
 
     $content = $post->post_content;
     $img_preg = "/!\[(.*?)\]\((.*?)\)|<img (.*?)src=\"(.+?)\".*?>/";
-    preg_match($img_preg,$content,$img_src);
+    preg_match($img_preg, $content, $img_src);
     $img_count = count($img_src) - 1;
-    if (isset($img_src[$img_count])) $img_val = $img_src[$img_count];
+    if (isset($img_src[$img_count])) {
+        $img_val = $img_src[$img_count];
+    }
+
     if ($img_val) {
         return $img_val;
     }
 
-    if( function_exists('z_taxonomy_image_url') ) {
-        foreach(get_the_category($post->ID) as $c) {
+    if (function_exists('z_taxonomy_image_url')) {
+        foreach (get_the_category($post->ID) as $c) {
             $c_thumb = z_taxonomy_image_url($c->term_id);
             if ($c_thumb) {
                 return $c_thumb;
             }
-            while($c->category_parent) {
+            while ($c->category_parent) {
                 $c = get_category($c->category_parent);
                 $c_thumb = z_taxonomy_image_url($c->term_id);
                 if ($c_thumb) {
@@ -184,7 +258,7 @@ function get_elsa_post_thumb()
 
     return of_get_option("summary_thumb");
 }
-add_theme_support( "post-thumbnails" );
+add_theme_support("post-thumbnails");
 
 /**
  * the pagination
@@ -297,9 +371,9 @@ function the_crumbs()
             $parentCat = get_category($thisCat->parent);
             if ($thisCat->parent != 0) {
                 $cat_code = get_category_parents($parentCat, true, '&');
-                echo $cat_code = '<li class="breadcrumb-item">' . 
-                    str_replace('&', '</li><li class="breadcrumb-item">', $cat_code);
-            }else {
+                echo $cat_code = '<li class="breadcrumb-item">' .
+                str_replace('&', '</li><li class="breadcrumb-item">', $cat_code);
+            } else {
                 echo '<li class="breadcrumb-item">';
             }
             echo single_cat_title('', false) . '</li>';
@@ -308,9 +382,9 @@ function the_crumbs()
                 $cat = get_the_terms($id, 'category');
                 $cat = $cat[0];
                 $cat_code = get_category_parents($cat, true, '&');
-                echo $cat_code = '<li class="breadcrumb-item">' . 
-                    str_replace('&', '</li><li class="breadcrumb-item">', $cat_code) . 
-                    get_the_title() . '</li>';
+                echo $cat_code = '<li class="breadcrumb-item">' .
+                str_replace('&', '</li><li class="breadcrumb-item">', $cat_code) .
+                get_the_title() . '</li>';
             }
         } elseif (is_tax()) { // 分类 存档
             $query_obj = get_queried_object();
@@ -319,13 +393,13 @@ function the_crumbs()
             echo get_term_parents_list($term_id, $taxonomy, array('inclusive' => false, 'separator' => ' > '));
             echo $before . '' . single_cat_title('', false) . '' . $after;
         } elseif (is_page() && !$post->post_parent) { // 页面
-            echo '<li class="breadcrumb-item">'.get_the_title().'</li>';
+            echo '<li class="breadcrumb-item">' . get_the_title() . '</li>';
         } elseif (is_page() && $post->post_parent) { // 父级页面
             $parent_id = $post->post_parent;
             $breadcrumbs = array();
             while ($parent_id) {
                 $page = get_page($parent_id);
-                $breadcrumbs[] = '<li class="breadcrumb-item"><a href="'.get_permalink($page->ID).'">'.get_the_title($page->ID).'</a></li>';
+                $breadcrumbs[] = '<li class="breadcrumb-item"><a href="' . get_permalink($page->ID) . '">' . get_the_title($page->ID) . '</a></li>';
                 $parent_id = $page->post_parent;
             }
             $breadcrumbs = array_reverse($breadcrumbs);
@@ -333,19 +407,19 @@ function the_crumbs()
                 echo $crumb;
             }
 
-            echo '<li class="breadcrumb-item">'.get_the_title().'</li>';
+            echo '<li class="breadcrumb-item">' . get_the_title() . '</li>';
         } elseif (is_search()) { // 搜索结果
             echo '<li class="breadcrumb-item">';
             printf(__('“ %s ” 的搜索结果: ', 'maine'), get_search_query());
             echo '</li>';
         } elseif (is_404()) { // 404 页面
-            echo '<li class="breadcrumb-item">'.get_the_title().'</li>';
+            echo '<li class="breadcrumb-item">' . get_the_title() . '</li>';
             _e('页面未找到', 'maine');
             echo '</li>';
         }
         if (get_query_var('paged')) { // 分页
             // if (is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author()) {
-                echo sprintf(__('&nbsp;( Page %s )', 'maine'), get_query_var('paged'));
+            echo sprintf(__('&nbsp;( Page %s )', 'maine'), get_query_var('paged'));
             // }
         }
 
@@ -383,19 +457,20 @@ function elsa_register_nav_menu()
 }
 add_action('after_setup_theme', 'elsa_register_nav_menu');
 
-
 /**
  * Allow script tags to be saved in the of
  *
  * @author Maine <https://www.cainiaofly.com>
  * @license GPL-3.0
  */
-add_action('admin_init','optionscheck_change_santiziation', 100);
-function optionscheck_change_santiziation() {
-    remove_filter( 'of_sanitize_textarea', 'of_sanitize_textarea' );
-    add_filter( 'of_sanitize_textarea', 'custom_sanitize_textarea' );
+add_action('admin_init', 'optionscheck_change_santiziation', 100);
+function optionscheck_change_santiziation()
+{
+    remove_filter('of_sanitize_textarea', 'of_sanitize_textarea');
+    add_filter('of_sanitize_textarea', 'custom_sanitize_textarea');
 }
-function custom_sanitize_textarea($input) {
+function custom_sanitize_textarea($input)
+{
     global $allowedposttags;
     $custom_allowedtags["embed"] = array(
         "src" => array(),
@@ -403,10 +478,10 @@ function custom_sanitize_textarea($input) {
         "allowfullscreen" => array(),
         "allowscriptaccess" => array(),
         "height" => array(),
-        "width" => array()
-      );
-    $custom_allowedtags["script"] = array( "type" => array(),"src" => array() );
+        "width" => array(),
+    );
+    $custom_allowedtags["script"] = array("type" => array(), "src" => array());
     $custom_allowedtags = array_merge($custom_allowedtags, $allowedposttags);
-    $output = wp_kses( $input, $custom_allowedtags);
+    $output = wp_kses($input, $custom_allowedtags);
     return $output;
 }

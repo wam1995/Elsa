@@ -10,10 +10,13 @@
 <html lang="zh-cn">
 
 <head>
+    <title><?php wp_title( '-', true, 'right' ); ?></title>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><?php wp_title( '-', true, 'right' ); ?></title>
+    <meta name="format-detection" content="telphone=no, email=no">
+    <meta name="description" content="<?php elsa_description(); ?>" />
+    <meta name="keywords" content="<?php elsa_keywords();?>" />
     <?php wp_head();?>
     <?php
         if(of_get_option("cus_style")) {
@@ -51,7 +54,13 @@
                 }
             ?>
                 <div class="container">
-                    <a class="navbar-brand" href="<?php echo home_url(); ?>"><?php bloginfo('name'); ?></a>
+                    <?php
+                        if(of_get_option("site_logo")) {
+                            echo '<a class="navbar-brand" href="'.home_url().'"><img src="'.of_get_option("site_logo").'"></a>';
+                        }else {
+                            echo '<a class="navbar-brand" href="'.home_url().'">'.get_bloginfo('name').'</a>';
+                        }
+                    ?>
                     <span id="elsa-navbar-toggler" class="fa fa-navicon d-md-none"></span>
                         <?php
                             if ( has_nav_menu( 'header_menu' ) ) {

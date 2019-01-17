@@ -8,6 +8,30 @@ function optionsframework_option_name() {
 
 function optionsframework_options() {
 
+	// site 
+	$options[] = array(
+		'name' => __( '站点设置', 'elsa' ),
+		'type' => 'heading');
+	$options[] = array(
+		'name' => __( '站点 logo', 'elsa' ),
+		'desc' => __( '不添加则显示文字标题，推荐 50px x 50px', 'elsa' ),
+		'id' => 'site_logo',
+		'type' => 'upload');
+	$options[] = array(
+		'name' => '关键词',
+		'desc' => '关键词用英文逗号分隔',
+		'id' => 'site_keywords',
+		'std' => '',
+		'type' => 'text');
+	$options[] = array(
+		'name' => '网站描述',
+		'id' => 'site_desc',
+		'std' => '',
+		'type' => 'textarea');
+	
+	
+
+	// summary
 	$options[] = array(
 		'name' => __( '文章摘要', 'elsa' ),
 		'type' => 'heading');

@@ -22,8 +22,8 @@
                         $category = get_the_category();
                         $cat_show = $category[count($category) - 1];
                     ?>
-                    <a class="elsa-summary-label" href="<?php echo get_category_link($cat_show->term_id); ?>"><?php echo $cat_show->cat_name; ?></a>
-                    <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+                    <a class="elsa-summary-label d-none d-md-inline" href="<?php echo get_category_link($cat_show->term_id); ?>"><?php echo $cat_show->cat_name; ?></a>
+                    <h2><a href="<?php the_permalink(); ?>"><?php echo wp_trim_words( get_the_title(), 20 ); ?></a></h2>
                 </header>
                 <p>
                 <?php echo wp_trim_words(get_the_content(), of_get_option("summary_trim", 140)); ?>
